@@ -4,7 +4,7 @@ import TodoList from './TodoList'
 const Todo = () => {
   return (
     <div>
-      <TodoList />
+      <h1>This is where the Todos will be listened...</h1>
     </div>
   )
 }
