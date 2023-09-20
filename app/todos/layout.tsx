@@ -1,16 +1,18 @@
-import TodoList from "./TodoList";
-import Todo from "./page";
+import TodosList from "./TodosList"
+
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode;
+  children: React.ReactNode
 }) {
   return (
     <main className="flex">
+      
       <div>
-        <TodoList />
+        <TodosList />
       </div>
+
       <div className="flex-1">{children}</div>
     </main>
   )

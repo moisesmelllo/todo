@@ -1,56 +1,56 @@
+import {notFound } from 'next/navigation'
 
 
-import { Todo } from '@/typings'
-import { notFound } from 'next/navigation';
-
+// caso não tenha a pagina gerada pelo generateStaticParams, tente renderiza-la e depois salve em cache
 export const dynamicParams = true;
 
 type PageProps = {
   params: {
-    todoId: string
+    todoId: string;
   }
 }
 
-const fetchTodo = async (todoId: string) => {
-  const res = await fetch(
-    `http://jsonplaceholder.typicode.com/todos/${todoId}`,
-    { next: { revalidate: 60}}
-  );
+
+// função que bate na api de cada todo individualmente
+// metodo next: {revalidate: } determina quando tempo o resposta pode ficar armazenada em cache antes que o next
+// volte a fazer uma requisição.
+const fetchTodo  = async (todoId: string) => {
+  const res = await fetch(`https://jsonplaceholder.typicode.com/todos/${todoId}`, {next: { revalidate: 60}})
 
   const todo = await res.json();
-  return todo;
+  return todo
+
 }
 
-async function Todopage ({ params: {todoId}}: PageProps) {
 
-  const todo: Todo = await fetchTodo(todoId)
+// note que todoId é o mesmo nome dado a pasta dinamica que contem esta pagina, deste modo, você receberá juntamente com outras
+// props o valor do id de cada todo
+async function TodoPage({ params: {todoId } } : PageProps) {
+  const todo = await fetchTodo(todoId)
 
-  if (!todo.id) return notFound();
+
+  // caso tente acessar um todo que não existe, você será redirecionadao para a pagina de not-found
+  if(!todo.id) return notFound();
 
   return (
-    <div className='p-10 bg-yellow-200 border-2 m-2 shadow-lg'>
-      <p>
-        #{todo.id}: {todo.title}
-      </p>
+    <div className="p-10 bg-yellow-200 border-2 m-2 shadow-lg">
+      <p>#{todo.id}: {todo.title}</p>
       <p>Completed: {todo.completed ? 'yes' : 'No'}</p>
-
-      <p className='border-t border-black mt-5 text-right'>
-        By user: {todo.userId}
-      </p>
+      <p className="border-t border-black mt-5 text-right">By User: {todo.userId}</p>
     </div>
   )
 }
 
-export default Todopage;
+export default TodoPage;
 
-export async function genereateStaticParams() {
-  const res = await fetch('http://jsonplaceholder.typicode.com/todos/');
-  const todos: Todo[] = await res.json();
 
-  // for this demo, we are only prebuilding the first 10 pages
-  const trimmedTodos = todos.splice(0, 10);
 
-  return trimmedTodos.map(todo => ({
+// pré renderiza todas as paginas para um carregamento mais rapido
+export async function generateStaticParams() {
+  const res = await fetch("https://jsonplaceholder.typicode.com/todos");
+  const todos = await res.json();
+
+  return todos.map((todo: any) => ({
     todoId: todo.id.toString(),
-  }))
+  }));
 }

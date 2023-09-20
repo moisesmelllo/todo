@@ -1,12 +1,11 @@
-import React from 'react'
-import TodoList from './TodoList'
+import TodosList from "./TodosList"
 
-const Todo = () => {
+const todo = () => {
   return (
     <div>
-      <h1>This is where the Todos will be listened...</h1>
+      <h1>This is where the Todos will be listed...</h1>
     </div>
   )
 }
 
-export default Todo
+export default todo

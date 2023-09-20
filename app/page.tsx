@@ -2,7 +2,7 @@ import React from 'react'
 
 const page = () => {
   return (
-    <div>I am the home page</div>
+    <div className='flex justify-center items-center h-screen'>I am the home page</div>
   )
 }
 
