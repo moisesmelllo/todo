@@ -8,7 +8,9 @@ export default function RootLayout({
 }) {
   return (
     <main className="flex">
-      
+      <head>
+        <title>Todo component</title>
+      </head>
       <div>
         <TodosList />
       </div>

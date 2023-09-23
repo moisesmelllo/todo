@@ -11,7 +11,6 @@ const fetchTodos = async () => {
 
 // 1 - função principal
 async function TodosList() {
-
   // 3 -  retorno da função criada acima
   const todos = await fetchTodos();
 

@@ -1,5 +1,3 @@
-import TodosList from "./TodosList"
-
 const todo = () => {
   return (
     <div>
