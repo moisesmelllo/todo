@@ -10,11 +10,18 @@ const Header = () => {
           Home
         </Link>
       </button>
-      <button className="border-slate-950 bg-black text-white py-2 px-4 rounded-full">
+      <button className="border-slate-950 bg-black text-white py-2 px-4 rounded-full mr-2">
         <Link
           href='/todos'
         >
           Todos
+        </Link>
+      </button>
+      <button className="border-slate-950 bg-black text-white py-2 px-4 rounded-full">
+        <Link
+          href='/search'
+        >
+          Search
         </Link>
       </button>
     </div>
